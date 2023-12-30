@@ -25,6 +25,7 @@
   <ItemGroup>
     <Text Include="text_Files\adjacent_cities.txt" />
     <Text Include="text_Files\CityDistances.txt" />
+    <Text Include="text_Files\test.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graph.h">

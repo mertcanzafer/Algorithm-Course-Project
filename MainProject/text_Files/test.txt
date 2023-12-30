@@ -1,0 +1,4 @@
+Ankara,Adana,Bursa
+Adana,Ankara,Giresun
+Giresun,Adana,Bursa
+Bursa,Ankara,Giresun

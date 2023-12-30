@@ -2,10 +2,14 @@
 
 graph::Graph g;
 std::vector<graph::Vertex>VertexList;
+std::vector<std::string>CityLists;
+std::vector<graph::Entity>Adjacents;
+
+static const char* filePath = "text_Files/test.txt";
 
 void ConstructVertexList()
 {
-	std::vector<std::string>CityLists{ "Ankara","Adana","Giresun","Bursa" };
+	CityLists = { "Ankara","Adana","Giresun","Bursa" };
 	
 	// Vertex = "Ankara"
 	graph::Entity e1;
@@ -14,24 +18,67 @@ void ConstructVertexList()
 	e2.cityName = CityLists[3];
 	std::vector<graph::Entity> Ev1{e1, e2};
 	VertexList.push_back(graph::Vertex(CityLists[0], Ev1));
-
+	Ev1.clear();
 	//  Vertex = "Adana"
 	e1.cityName = CityLists[0];
 	e2.cityName = CityLists[2];
-	std::vector<graph::Entity>Ev2{ e1,e2 };
-	VertexList.push_back(graph::Vertex(CityLists[1], Ev2));
-
+	Ev1 = { e1,e2 };
+	VertexList.push_back(graph::Vertex(CityLists[1], Ev1));
+	Ev1.clear();
 	// Vertex = "Giresun"
 	e1.cityName = CityLists[1];
 	e2.cityName = CityLists[3];
-	std::vector<graph::Entity>Ev3{ e1,e2 };
-	VertexList.push_back(graph::Vertex(CityLists[2], Ev3));
-
+	Ev1 = { e1,e2 };
+	VertexList.push_back(graph::Vertex(CityLists[2], Ev1));
+	Ev1.clear();
 	// Vertex = "Bursa"
 	e1.cityName = CityLists[0];
 	e2.cityName = CityLists[2];
-	std::vector<graph::Entity>Ev4{ e1,e2 };
-	VertexList.push_back(graph::Vertex(CityLists[3], Ev4));
+	Ev1 = { e1,e2 };
+	VertexList.push_back(graph::Vertex(CityLists[3], Ev1));
+	Ev1.clear();
+}
+
+void ReadFile(const char* fileLoc)
+{
+	graph::Entity e;
+
+	std::string line;
+	std::fstream file;
+	file.open(fileLoc, std::ios::in);
+
+	if (!file) { std::cout << "No such a file exits." << std::endl; return; }
+
+	while (!file.eof())
+	{
+		std::getline(file, line);
+		
+		std::string content = "";
+		int FirstComma = line.find(',');
+		std::string VertexStr = line.substr(0, FirstComma);
+	    
+		for (size_t i = FirstComma + 1; i < line.length(); i++)
+		{
+			if (line[i] != ',')
+			{
+				content += line[i];
+			}
+			else {
+				e.cityName = content;
+				Adjacents.push_back(e);
+				content = "";
+			}
+		}
+		Adjacents.push_back(e);
+		content = "";
+
+		VertexList.push_back(graph::Vertex(VertexStr, Adjacents));
+		Adjacents.clear();
+
+		std::cout << line << std::endl;
+	}
+
+	file.close();
 }
 
 int main()
@@ -44,6 +91,8 @@ int main()
 	std::cout << "The number of edge is: " << g.getEsize() << std::endl;
 	std::cout << "-----------------------------" << std::endl;
 	g.printGraph();
+
+	//ReadFile(filePath);
 
 	return 0;
 }

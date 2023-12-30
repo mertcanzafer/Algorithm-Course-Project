@@ -3,6 +3,7 @@
 #include<iostream>
 #include <vector>
 #include <string>
+#include <fstream>
 namespace graph
 {
 	struct Entity

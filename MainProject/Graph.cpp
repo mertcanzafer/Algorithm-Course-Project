@@ -50,4 +50,5 @@ void Graph::printGraph() const
 		v.printAdjacents();
 		std::cout << std::endl;
 	}
+	std::cout << std::endl;
 }
