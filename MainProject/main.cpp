@@ -32,7 +32,6 @@ void ConstructVertexList()
 	e2.cityName = CityLists[2];
 	std::vector<graph::Entity>Ev4{ e1,e2 };
 	VertexList.push_back(graph::Vertex(CityLists[3], Ev4));
-
 }
 
 int main()
