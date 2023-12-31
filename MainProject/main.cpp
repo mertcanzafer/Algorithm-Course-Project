@@ -6,6 +6,7 @@ std::vector<std::string>CityLists;
 std::vector<graph::Entity>Adjacents;
 
 static const char* AdjacentFileLoc = "text_Files/test.txt";
+static const char* DistanceFileLoc = "text_Files/test2.txt";
 
 void ConstructVertexList()
 {

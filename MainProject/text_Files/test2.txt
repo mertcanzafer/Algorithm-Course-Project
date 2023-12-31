@@ -1,0 +1,5 @@
+Plate Number;City Name;Ankara;Adana;Giresun;Bursa
+01;Ankara;0;100;148;200;
+02;Adana;100;0;48;78;
+03;Giresun;148;48;0;30;
+04;Bursa;200;78;30;0;
