@@ -32,6 +32,7 @@ namespace graph
 		int getVsize()const;
 		int getEsize();
 		void printGraph()const;
+		std::vector<std::vector<int>> DistanceTable;
 
 	private:
 		std::vector<Vertex> vertexList;
