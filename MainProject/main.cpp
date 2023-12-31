@@ -5,7 +5,7 @@ std::vector<graph::Vertex>VertexList;
 std::vector<std::string>CityLists;
 std::vector<graph::Entity>Adjacents;
 
-static const char* filePath = "text_Files/test.txt";
+static const char* AdjacentFileLoc = "text_Files/test.txt";
 
 void ConstructVertexList()
 {
@@ -69,6 +69,7 @@ void ReadFile(const char* fileLoc)
 				content = "";
 			}
 		}
+		e.cityName = content;
 		Adjacents.push_back(e);
 		content = "";
 
@@ -82,7 +83,7 @@ void ReadFile(const char* fileLoc)
 int main()
 {
 	//ConstructVertexList();
-	ReadFile(filePath);
+	ReadFile(AdjacentFileLoc);
 
 	g = graph::Graph(VertexList);
 

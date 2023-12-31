@@ -134,6 +134,7 @@
     <Text Include="text_Files\adjacent_cities.txt" />
     <Text Include="text_Files\CityDistances.txt" />
     <Text Include="text_Files\test.txt" />
+    <Text Include="text_Files\test2.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CityToPlateConversion.h" />
