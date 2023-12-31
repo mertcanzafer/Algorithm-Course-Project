@@ -74,8 +74,6 @@ void ReadFile(const char* fileLoc)
 
 		VertexList.push_back(graph::Vertex(VertexStr, Adjacents));
 		Adjacents.clear();
-
-		std::cout << line << std::endl;
 	}
 
 	file.close();
@@ -83,7 +81,8 @@ void ReadFile(const char* fileLoc)
 
 int main()
 {
-	ConstructVertexList();
+	//ConstructVertexList();
+	ReadFile(filePath);
 
 	g = graph::Graph(VertexList);
 
@@ -91,8 +90,6 @@ int main()
 	std::cout << "The number of edge is: " << g.getEsize() << std::endl;
 	std::cout << "-----------------------------" << std::endl;
 	g.printGraph();
-
-	//ReadFile(filePath);
 
 	return 0;
 }
