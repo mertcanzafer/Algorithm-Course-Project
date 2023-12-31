@@ -1,10 +1,14 @@
 #pragma once
 #include "CityToPlateConversion.h"
 #include<iostream>
+
 #include <vector>
 #include <string>
-#include <fstream>
 #include <algorithm>
+
+#include <fstream>
+#include <sstream>
+
 namespace graph
 {
 	struct Entity
@@ -33,6 +37,8 @@ namespace graph
 		int getEsize();
 		void printGraph()const;
 		std::vector<std::vector<int>> DistanceTable;
+		void ConstructDistanceTable(const char* fileLoc);
+		void printDistanceTable()const;
 
 	private:
 		std::vector<Vertex> vertexList;

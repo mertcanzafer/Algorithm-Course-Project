@@ -93,5 +93,9 @@ int main()
 	std::cout << "-----------------------------" << std::endl;
 	g.printGraph();
 
+	std::cout << "-----------------------------" << std::endl;
+	g.ConstructDistanceTable(DistanceFileLoc);
+	g.printDistanceTable();
+
 	return 0;
 }
