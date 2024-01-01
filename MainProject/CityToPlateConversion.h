@@ -25,3 +25,11 @@ static std::unordered_map<std::string, int> Citiy_To_PlateNumber
 {"Yalova",77},{"Karabuk",78},{"Kilis",79},{"Osmaniye",80},
 {"Duzce",81},
 };
+
+static std::unordered_map<std::string, int> test_City_Plate
+{
+	{"Ankara",1}, 
+	{"Adana",2},
+	{"Giresun",3},
+	{"Bursa",4}
+};

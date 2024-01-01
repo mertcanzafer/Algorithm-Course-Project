@@ -91,11 +91,11 @@ int main()
 	std::cout << "The number of vertex is: " << g.getVsize()<<std::endl;
 	std::cout << "The number of edge is: " << g.getEsize() << std::endl;
 	std::cout << "-----------------------------" << std::endl;
-	g.printGraph();
-
-	std::cout << "-----------------------------" << std::endl;
 	g.ConstructDistanceTable(DistanceFileLoc);
-	g.printDistanceTable();
+	//g.printDistanceTable();
+
+	g.SetWeights();
+	g.printGraph();
 
 	return 0;
 }

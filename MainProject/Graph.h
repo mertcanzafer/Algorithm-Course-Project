@@ -39,6 +39,7 @@ namespace graph
 		std::vector<std::vector<int>> DistanceTable;
 		void ConstructDistanceTable(const char* fileLoc);
 		void printDistanceTable()const;
+		void SetWeights();
 
 	private:
 		std::vector<Vertex> vertexList;

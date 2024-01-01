@@ -13,7 +13,7 @@ void Vertex::printAdjacents()const
 {
 	for (auto& v : adjacents)
 	{
-		std::cout << v.cityName << " , ";
+		std::cout << v.cityName<<"("<<v.weight<<")" << " , ";
 	}
 }
 
@@ -93,5 +93,27 @@ void Graph::printDistanceTable() const
 			std::cout << val << " , ";
 		}
 		std::cout << std::endl;
+	}
+}
+
+void Graph::SetWeights()
+{
+	int col = 0;
+
+	// Traverse the table
+	for (size_t i = 0; i < DistanceTable.size(); i++)
+	{
+		for (size_t j = 0; j < DistanceTable.size(); j++)
+		{
+			col = j + 1;
+			// set weight
+			for (auto& a : vertexList[i].adjacents)
+			{
+				if (test_City_Plate[a.cityName] == col)
+				{
+					a.weight = DistanceTable[i][j];
+				}
+			}
+		}
 	}
 }
