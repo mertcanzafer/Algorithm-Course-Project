@@ -5,9 +5,15 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <queue>
 
 #include <fstream>
 #include <sstream>
+
+// We'll need this functions for implementing priority queue
+using std::make_heap;
+using std::push_heap;
+using std::pop_heap;
 
 namespace graph
 {
