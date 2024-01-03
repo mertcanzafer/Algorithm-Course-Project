@@ -8,38 +8,6 @@ std::vector<graph::Entity>Adjacents;
 static const char* AdjacentFileLoc = "text_Files/test.txt";
 static const char* DistanceFileLoc = "text_Files/test2.txt";
 
-void ConstructVertexList()
-{
-	CityLists = { "Ankara","Adana","Giresun","Bursa" };
-	
-	// Vertex = "Ankara"
-	graph::Entity e1;
-	e1.cityName = CityLists[1];
-	graph::Entity e2;
-	e2.cityName = CityLists[3];
-	std::vector<graph::Entity> Ev1{e1, e2};
-	VertexList.push_back(graph::Vertex(CityLists[0], Ev1));
-	Ev1.clear();
-	//  Vertex = "Adana"
-	e1.cityName = CityLists[0];
-	e2.cityName = CityLists[2];
-	Ev1 = { e1,e2 };
-	VertexList.push_back(graph::Vertex(CityLists[1], Ev1));
-	Ev1.clear();
-	// Vertex = "Giresun"
-	e1.cityName = CityLists[1];
-	e2.cityName = CityLists[3];
-	Ev1 = { e1,e2 };
-	VertexList.push_back(graph::Vertex(CityLists[2], Ev1));
-	Ev1.clear();
-	// Vertex = "Bursa"
-	e1.cityName = CityLists[0];
-	e2.cityName = CityLists[2];
-	Ev1 = { e1,e2 };
-	VertexList.push_back(graph::Vertex(CityLists[3], Ev1));
-	Ev1.clear();
-}
-
 void ReadFile(const char* fileLoc)
 {
 	graph::Entity e;
@@ -83,7 +51,6 @@ void ReadFile(const char* fileLoc)
 
 int main()
 {
-	//ConstructVertexList();
 	ReadFile(AdjacentFileLoc);
 
 	g = graph::Graph(VertexList);
@@ -96,6 +63,7 @@ int main()
 
 	g.SetWeights();
 	g.printGraph();
-
+	std::string city = "Ankara";
+	g.findKClosestCities(city, 3);
 	return 0;
 }

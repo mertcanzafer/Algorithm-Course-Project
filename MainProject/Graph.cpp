@@ -117,3 +117,64 @@ void Graph::SetWeights()
 		}
 	}
 }
+
+void
+Graph::findKClosestCities(std::string& SourceCity, int k)
+{
+	const int n = VertexCount;
+	std::vector<int> dist(n, INT_MAX);
+	std::vector<int> prev(n, -1);
+
+	int start = test_City_Plate[SourceCity] - 1; // Getting plate id for inputted city. but sub 1 becuase arrays begin with 0
+	dist[start] = 0;
+
+	// Create an empty set
+	std::set<int> S;
+	// Create an empty queue
+	std::list<int> Q;
+
+	for (int i = 0; i < n; i++)
+		Q.push_back(i);
+	
+	while (!Q.empty())
+	{
+		std::list<int>::iterator it;
+		it = std::min_element(Q.begin(), Q.end());
+		int u = *it;
+		Q.remove(u);
+		S.insert(u);
+		std::vector<Entity>::iterator i;
+		int j = 0;
+		for (i = vertexList[u].adjacents.begin(); i != vertexList[u].adjacents.end(); i++)
+		{
+			if ((dist[u] + (i->weight)) < dist[j])
+			{
+				dist[j] = (dist[u] + (i->weight));
+				prev[j] = u;
+			}
+		}
+	}
+
+	std::vector<std::pair<int,int>> nodesAndDistances;
+
+	for (int i = 0; i < n; i++)
+	{
+		if (i != start)
+		{
+			nodesAndDistances.push_back({ i,dist[i] });
+		}
+	}
+	// Sort the vector to dist
+
+	std::sort(nodesAndDistances.begin(), nodesAndDistances.end(),
+		[](const std::pair<int,int>& a, const std::pair<int, int>& b)
+		{
+			return b.second > a.second;
+		}
+	);
+
+	for (int i = 0; i < k; i++)
+	{
+		std::cout << vertexList[nodesAndDistances[i].first].CityName<<" , ";
+	}
+}

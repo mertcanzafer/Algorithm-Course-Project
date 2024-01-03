@@ -6,6 +6,9 @@
 #include <string>
 #include <algorithm>
 #include <queue>
+#include <set>
+#include <list>
+#include <utility>
 
 #include <fstream>
 #include <sstream>
@@ -46,6 +49,7 @@ namespace graph
 		void ConstructDistanceTable(const char* fileLoc);
 		void printDistanceTable()const;
 		void SetWeights();
+		void findKClosestCities(std::string& SourceCity,int k);
 
 	private:
 		std::vector<Vertex> vertexList;
