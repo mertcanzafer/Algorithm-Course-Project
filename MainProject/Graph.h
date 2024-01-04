@@ -49,7 +49,11 @@ namespace graph
 		void ConstructDistanceTable(const char* fileLoc);
 		void printDistanceTable()const;
 		void SetWeights();
+		// Djikstra's Alg
 		void findKClosestCities(std::string& SourceCity,int k);
+		void FindShortestPath(std::string& SourceCity, std::string& DestCity);
+		void FindShortestPath(std::string& SourceCity, int &PlateId);
+		void printPath(std::vector<int>& prev, int dest);
 
 	private:
 		std::vector<Vertex> vertexList;

@@ -122,7 +122,7 @@ void
 Graph::findKClosestCities(std::string& SourceCity, int k)
 {
 	const int n = VertexCount;
-	std::vector<int> dist(n, INT_MAX);
+	std::vector<int> dist(n, 9999);
 	std::vector<int> prev(n, -1);
 
 	int start = test_City_Plate[SourceCity] - 1; // Getting plate id for inputted city. but sub 1 becuase arrays begin with 0
@@ -135,7 +135,7 @@ Graph::findKClosestCities(std::string& SourceCity, int k)
 
 	for (int i = 0; i < n; i++)
 		Q.push_back(i);
-	
+
 	while (!Q.empty())
 	{
 		std::list<int>::iterator it;
@@ -144,16 +144,26 @@ Graph::findKClosestCities(std::string& SourceCity, int k)
 		Q.remove(u);
 		S.insert(u);
 		std::vector<Entity>::iterator i;
-		int j = 0;
+		//std::cout << u<<std::endl;
 		for (i = vertexList[u].adjacents.begin(); i != vertexList[u].adjacents.end(); i++)
 		{
-			if ((dist[u] + (i->weight)) < dist[j])
+			std::cout << test_City_Plate[i->cityName] - 1 << std::endl;
+			if ((dist[u] + (i->weight)) < dist[test_City_Plate[i->cityName] - 1])
 			{
-				dist[j] = (dist[u] + (i->weight));
-				prev[j] = u;
+				std::cout<<"val: "<< test_City_Plate[i->cityName] - 1 <<std::endl;
+				dist[test_City_Plate[i->cityName] - 1] = (dist[u] + (i->weight));
+				//std::cout << test_City_Plate[i->cityName] - 1 << " : " << dist[test_City_Plate[i->cityName] - 1]<<std::endl;
+				prev[test_City_Plate[i->cityName] - 1] = u;
 			}
 		}
 	}
+	std::cout <<std::endl<< dist.size()<<std::endl;
+
+	for (const auto& v : dist)
+	{
+		std::cout << v << " , ";
+	}
+	std::cout << "\n";
 
 	std::vector<std::pair<int,int>> nodesAndDistances;
 
@@ -173,8 +183,70 @@ Graph::findKClosestCities(std::string& SourceCity, int k)
 		}
 	);
 
+	if (k > n) { std::cout << "Unvalid number k!!!" << std::endl; return; }
+
 	for (int i = 0; i < k; i++)
 	{
 		std::cout << vertexList[nodesAndDistances[i].first].CityName<<" , ";
 	}
+}
+
+void Graph::
+FindShortestPath(std::string& SourceCity, std::string& DestCity)
+{
+	const int n = VertexCount;
+	std::vector<int> dist(n, 9999);
+	std::vector<int> prev(n, -1);
+
+	int start = test_City_Plate[SourceCity] - 1; // Getting plate id for inputted city. but sub 1 becuase arrays begin with 0
+	int dest = test_City_Plate[DestCity] - 1;
+	dist[start] = 0;
+
+	// Create an empty set
+	std::set<int> S;
+	// Create an empty queue
+	std::list<int> Q;
+
+	for (int i = 0; i < n; i++)
+		Q.push_back(i);
+
+	while (!Q.empty())
+	{
+		std::list<int>::iterator it;
+		it = std::min_element(Q.begin(), Q.end());
+		int u = *it;
+		Q.remove(u);
+		S.insert(u);
+		std::vector<Entity>::iterator i;
+		//std::cout << u<<std::endl;
+		for (i = vertexList[u].adjacents.begin(); i != vertexList[u].adjacents.end(); i++)
+		{
+			std::cout << test_City_Plate[i->cityName] - 1 << std::endl;
+			if ((dist[u] + (i->weight)) < dist[test_City_Plate[i->cityName] - 1])
+			{
+				std::cout << "val: " << test_City_Plate[i->cityName] - 1 << std::endl;
+				dist[test_City_Plate[i->cityName] - 1] = (dist[u] + (i->weight));
+				//std::cout << test_City_Plate[i->cityName] - 1 << " : " << dist[test_City_Plate[i->cityName] - 1]<<std::endl;
+				prev[test_City_Plate[i->cityName] - 1] = u;
+			}
+		}
+	}
+	printPath(prev,dest);
+}
+
+void Graph:: 
+FindShortestPath(std::string& SourceCity, int& PlateId)
+{
+
+}
+
+
+void Graph:: printPath(std::vector<int>& prev, int dest)
+{
+	if (prev[dest] != -1)
+	{
+		printPath(prev, prev[dest]);
+		std::cout << " - ";
+	}
+	std::cout << vertexList[dest].CityName;
 }

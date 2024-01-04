@@ -28,8 +28,8 @@ static std::unordered_map<std::string, int> Citiy_To_PlateNumber
 
 static std::unordered_map<std::string, int> test_City_Plate
 {
-	{"Ankara",1}, 
-	{"Adana",2},
-	{"Giresun",3},
-	{"Bursa",4}
+	{"Ankara",1}, // 0 
+	{"Adana",2}, // 1 
+	{"Giresun",3},// 2
+	{"Bursa",4} // 3
 };
