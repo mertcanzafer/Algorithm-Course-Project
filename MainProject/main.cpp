@@ -63,8 +63,8 @@ int main()
 
 	g.SetWeights();
 	g.printGraph();
-	std::string city = "Giresun";
-	std::string dest = "Ankara";
+	std::string city = "Adana";
+	std::string dest = "Bursa";
 	g.findKClosestCities(city, 3);
 	std::cout << "\n-----------------------------" << std::endl;
 	g.FindShortestPath(city, dest);
