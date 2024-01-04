@@ -109,7 +109,7 @@ void Graph::SetWeights()
 			// set weight
 			for (auto& a : vertexList[i].adjacents)
 			{
-				if (test_City_Plate[a.cityName] == col)
+				if (Citiy_To_PlateNumber[a.cityName] == col)
 				{
 					a.weight = DistanceTable[i][j];
 				}
@@ -125,7 +125,7 @@ Graph::findKClosestCities(std::string& SourceCity, int k)
 	std::vector<int> dist(n, 9999);
 	std::vector<int> prev(n, -1);
 
-	int start = test_City_Plate[SourceCity] - 1; // Getting plate id for inputted city. but sub 1 becuase arrays begin with 0
+	int start = Citiy_To_PlateNumber[SourceCity] - 1; // Getting plate id for inputted city. but sub 1 becuase arrays begin with 0
 	dist[start] = 0;
 
 	// Create an empty set
@@ -147,23 +147,16 @@ Graph::findKClosestCities(std::string& SourceCity, int k)
 		//std::cout << u<<std::endl;
 		for (i = vertexList[u].adjacents.begin(); i != vertexList[u].adjacents.end(); i++)
 		{
-			std::cout << test_City_Plate[i->cityName] - 1 << std::endl;
-			if ((dist[u] + (i->weight)) < dist[test_City_Plate[i->cityName] - 1])
+			//std::cout << Citiy_To_PlateNumber[i->cityName] - 1 << std::endl;
+			if ((dist[u] + (i->weight)) < dist[Citiy_To_PlateNumber[i->cityName] - 1])
 			{
-				std::cout<<"val: "<< test_City_Plate[i->cityName] - 1 <<std::endl;
-				dist[test_City_Plate[i->cityName] - 1] = (dist[u] + (i->weight));
-				//std::cout << test_City_Plate[i->cityName] - 1 << " : " << dist[test_City_Plate[i->cityName] - 1]<<std::endl;
-				prev[test_City_Plate[i->cityName] - 1] = u;
+				//std::cout<<"val: "<< Citiy_To_PlateNumber[i->cityName] - 1 <<std::endl;
+				dist[Citiy_To_PlateNumber[i->cityName] - 1] = (dist[u] + (i->weight));
+				//std::cout << Citiy_To_PlateNumber[i->cityName] - 1 << " : " << dist[Citiy_To_PlateNumber[i->cityName] - 1]<<std::endl;
+				prev[Citiy_To_PlateNumber[i->cityName] - 1] = u;
 			}
 		}
 	}
-	std::cout <<std::endl<< dist.size()<<std::endl;
-
-	for (const auto& v : dist)
-	{
-		std::cout << v << " , ";
-	}
-	std::cout << "\n";
 
 	std::vector<std::pair<int,int>> nodesAndDistances;
 
@@ -198,8 +191,8 @@ FindShortestPath(std::string& SourceCity, std::string& DestCity)
 	std::vector<int> dist(n, 9999);
 	std::vector<int> prev(n, -1);
 
-	int start = test_City_Plate[SourceCity] - 1; // Getting plate id for inputted city. but sub 1 becuase arrays begin with 0
-	int dest = test_City_Plate[DestCity] - 1;
+	int start = Citiy_To_PlateNumber[SourceCity] - 1; // Getting plate id for inputted city. but sub 1 becuase arrays begin with 0
+	int dest = Citiy_To_PlateNumber[DestCity] - 1;
 	dist[start] = 0;
 
 	// Create an empty set
@@ -221,13 +214,13 @@ FindShortestPath(std::string& SourceCity, std::string& DestCity)
 		//std::cout << u<<std::endl;
 		for (i = vertexList[u].adjacents.begin(); i != vertexList[u].adjacents.end(); i++)
 		{
-			std::cout << test_City_Plate[i->cityName] - 1 << std::endl;
-			if ((dist[u] + (i->weight)) < dist[test_City_Plate[i->cityName] - 1])
+			//std::cout << Citiy_To_PlateNumber[i->cityName] - 1 << std::endl;
+			if ((dist[u] + (i->weight)) < dist[Citiy_To_PlateNumber[i->cityName] - 1])
 			{
-				std::cout << "val: " << test_City_Plate[i->cityName] - 1 << std::endl;
-				dist[test_City_Plate[i->cityName] - 1] = (dist[u] + (i->weight));
-				//std::cout << test_City_Plate[i->cityName] - 1 << " : " << dist[test_City_Plate[i->cityName] - 1]<<std::endl;
-				prev[test_City_Plate[i->cityName] - 1] = u;
+				//std::cout << "val: " << Citiy_To_PlateNumber[i->cityName] - 1 << std::endl;
+				dist[Citiy_To_PlateNumber[i->cityName] - 1] = (dist[u] + (i->weight));
+				//std::cout << Citiy_To_PlateNumber[i->cityName] - 1 << " : " << dist[Citiy_To_PlateNumber[i->cityName] - 1]<<std::endl;
+				prev[Citiy_To_PlateNumber[i->cityName] - 1] = u;
 			}
 		}
 	}

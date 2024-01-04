@@ -3,7 +3,7 @@
 #include<string>
 static std::unordered_map<std::string, int> Citiy_To_PlateNumber
 {
-{"Adana",1},{"Adiyaman",2},{"Afyonkarahisar",3},{"Agri",4},
+{"Adana",1},{"Adiyaman",2},{"Afyon",3},{"Agri",4},
 {"Amasya",5},{"Ankara",6},{"Antalya",7},{"Artvin",8},
 {"Aydin",9},{"Balikesir",10},{"Bilecik",11},{"Bingol",12},
 {"Bitlis",13},{"Bolu",14},{"Burdur",15},{"Bursa",16},
@@ -11,8 +11,8 @@ static std::unordered_map<std::string, int> Citiy_To_PlateNumber
 {"Diyarbakir",21},{"Edirne",22},{"Elazig",23},{"Erzincan",24},
 {"Erzurum",25},{"Eskisehir",26},{"Gaziantep",27},{"Giresun",28},
 {"Gumushane",29},{"Hakkari",30},{"Hatay",31},{"Isparta",32},
-{"Mersin",33},{"Istanbul",34},{"Izmir",35},{"Kars",36},
-{"Kastamonu",37},{"Kayseri",38},{"Kirklareli",39},{"Kirþehir",40},
+{"Icel",33},{"Istanbul",34},{"Izmir",35},{"Kars",36},
+{"Kastamonu",37},{"Kayseri",38},{"Kirklareli",39},{"Kirsehir",40},
 {"Kocaeli",41},{"Konya",42},{"Kutahya",43},{"Malatya",44},
 {"Manisa",45},{"Kahramanmaras",46},{"Mardin",47},{"Mugla",48},
 {"Mus",49},{"Nevsehir",50},{"Nigde",51},{"Ordu",52},
