@@ -5,8 +5,8 @@ std::vector<graph::Vertex>VertexList;
 std::vector<std::string>CityLists;
 std::vector<graph::Entity>Adjacents;
 
-static const char* AdjacentFileLoc = "text_Files/adjacent_cities.txt";
-static const char* DistanceFileLoc = "text_Files/CityDistances.txt";
+static const char* AdjacentFileLoc = "text_Files/test.txt";
+static const char* DistanceFileLoc = "text_Files/test2.txt";
 
 void ReadFile(const char* fileLoc)
 {
@@ -62,13 +62,13 @@ int main()
 	//g.printDistanceTable();
 
 	g.SetWeights();
-	//g.printGraph();
-	std::string city = "Bursa";
-	std::string dest = "Icel";
+	g.printGraph();
+	std::string city = "Ankara";
+	std::string dest = "Bursa";
 
-	g.findKClosestCities(city, 3);
+	//g.findKClosestCities(city, 3);
 	std::cout << "\n-----------------------------" << std::endl;
- 	g.FindShortestPath(city, dest);
+    g.FindShortestPath(city, dest);
 
 	return 0;
 }
