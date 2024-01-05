@@ -217,29 +217,38 @@ FindShortestPath(std::string& SourceCity, std::string& DestCity)
 			//std::cout << Citiy_To_PlateNumber[i->cityName] - 1 << std::endl;
 			if ((dist[u] + (i->weight)) < dist[Citiy_To_PlateNumber[i->cityName] - 1])
 			{
-				//std::cout << "val: " << Citiy_To_PlateNumber[i->cityName] - 1 << std::endl;
+				//std::cout<<"val: "<< Citiy_To_PlateNumber[i->cityName] - 1 <<std::endl;
 				dist[Citiy_To_PlateNumber[i->cityName] - 1] = (dist[u] + (i->weight));
 				//std::cout << Citiy_To_PlateNumber[i->cityName] - 1 << " : " << dist[Citiy_To_PlateNumber[i->cityName] - 1]<<std::endl;
 				prev[Citiy_To_PlateNumber[i->cityName] - 1] = u;
 			}
 		}
 	}
-	printPath(prev,dest);
+	printPath(prev, start,dest);
 }
 
 void Graph:: 
 FindShortestPath(std::string& SourceCity, int& PlateId)
 {
-
+	
 }
 
-
-void Graph:: printPath(std::vector<int>& prev, int dest)
+void Graph::printPath(std::vector<int>& prev, int start,int dest)
 {
-	if (prev[dest] != -1)
-	{
-		printPath(prev, prev[dest]);
-		std::cout << " - ";
+	std::vector<int> path;
+	int current = dest;
+	while (current != -1) {
+		path.push_back(current);
+		current = prev[current];
 	}
-	std::cout << vertexList[dest].CityName;
+
+	std::cout << "Shortest path from " << vertexList[start].CityName << " to " << vertexList[dest].CityName << ": ";
+	std::cout << path.size();
+	for (int i = path.size() - 1; i >= 0; --i) {
+		std::cout << vertexList[path[i]].CityName;
+		if (i > 0) {
+			std::cout << " -> ";
+		}
+	}
+	std::cout << "\n";
 }

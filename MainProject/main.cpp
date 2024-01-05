@@ -59,12 +59,12 @@ int main()
 	std::cout << "The number of edge is: " << g.getEsize() << std::endl;
 	std::cout << "-----------------------------" << std::endl;
 	g.ConstructDistanceTable(DistanceFileLoc);
-	g.printDistanceTable();
+	//g.printDistanceTable();
 
 	g.SetWeights();
-	g.printGraph();
+	//g.printGraph();
 	std::string city = "Bursa";
-	std::string dest = "Ankara";
+	std::string dest = "Icel";
 
 	g.findKClosestCities(city, 3);
 	std::cout << "\n-----------------------------" << std::endl;
