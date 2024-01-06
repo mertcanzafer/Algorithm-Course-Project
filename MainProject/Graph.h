@@ -53,7 +53,8 @@ namespace graph
 		void findKClosestCities(std::string& SourceCity,int k);
 		void FindShortestPath(std::string& SourceCity, std::string& DestCity);
 		void FindShortestPath(std::string& SourceCity, int &PlateId);
-		void printPath(std::vector<int>& prev, int start,int dest,bool& isSwapped);
+		void printPath(std::vector<int>& prev,std::vector<int>& dist, int start,int dest);
+		void printCities(std::vector<int>& prev,int start,int dest);
 
 	private:
 		std::vector<Vertex> vertexList;

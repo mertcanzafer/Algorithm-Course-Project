@@ -191,49 +191,31 @@ FindShortestPath(std::string& SourceCity, std::string& DestCity)
 	std::vector<int> dist(n, 9999);
 	std::vector<int> prev(n, -1);
 
-	int start = Citiy_To_PlateNumber[SourceCity] - 1; // Getting plate id for inputted city. but sub 1 becuase arrays begin with 0
+	int start = Citiy_To_PlateNumber[SourceCity] - 1;
 	int dest = Citiy_To_PlateNumber[DestCity] - 1;
-	bool flag = false;
-	if (start > dest)
-	{
-		// swap
-		flag = true;
-		int temp = start;
-		start = dest;
-		dest = temp;
-	}
 	dist[start] = 0;
 
-	// Create an empty set
-	std::set<int> S;
-	// Create an empty queue
-	std::list<int> Q;
+	std::priority_queue<std::pair<int, int>, 
+	std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> pQ;
+	pQ.push({ 0,start });
 
-	for (int i = 0; i < n; i++)
-		Q.push_back(i);
-
-	while (!Q.empty())
+	while (!pQ.empty())
 	{
-		std::list<int>::iterator it;
-		it = std::min_element(Q.begin(), Q.end());
-		int u = *it;
-		Q.remove(u);
-		S.insert(u);
+		int u = pQ.top().second;
+		pQ.pop();
+
 		std::vector<Entity>::iterator i;
-		//std::cout << u<<std::endl;
 		for (i = vertexList[u].adjacents.begin(); i != vertexList[u].adjacents.end(); i++)
 		{
-			//std::cout << Citiy_To_PlateNumber[i->cityName] - 1 << std::endl;
 			if ((dist[u] + (i->weight)) < dist[Citiy_To_PlateNumber[i->cityName] - 1])
 			{
-				//std::cout<<"val: "<< Citiy_To_PlateNumber[i->cityName] - 1 <<std::endl;
 				dist[Citiy_To_PlateNumber[i->cityName] - 1] = (dist[u] + (i->weight));
-				//std::cout << Citiy_To_PlateNumber[i->cityName] - 1 << " : " << dist[Citiy_To_PlateNumber[i->cityName] - 1]<<std::endl;
 				prev[Citiy_To_PlateNumber[i->cityName] - 1] = u;
+				pQ.push({ dist[Citiy_To_PlateNumber[i->cityName] - 1],Citiy_To_PlateNumber[i->cityName] - 1 });
 			}
 		}
 	}
-	printPath(prev,start, dest,flag); 
+	printPath(prev, dist, start, dest);
 }
 
 void Graph:: 
@@ -245,78 +227,49 @@ FindShortestPath(std::string& SourceCity, int& PlateId)
 
 	int start = Citiy_To_PlateNumber[SourceCity] - 1; // Getting plate id for inputted city. but sub 1 becuase arrays begin with 0
 	int dest = PlateId - 1;
-	bool flag = false;
-	if (start > dest)
-	{
-		// swap
-		flag = true;
-		int temp = start;
-		start = dest;
-		dest = temp;
-	}
 	dist[start] = 0;
 
-	// Create an empty set
-	std::set<int> S;
-	// Create an empty queue
-	std::list<int> Q;
+	std::priority_queue<std::pair<int, int>,
+		std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> pQ;
+	pQ.push({ 0,start });
 
-	for (int i = 0; i < n; i++)
-		Q.push_back(i);
-
-	while (!Q.empty())
+	while (!pQ.empty())
 	{
-		std::list<int>::iterator it;
-		it = std::min_element(Q.begin(), Q.end());
-		int u = *it;
-		Q.remove(u);
-		S.insert(u);
+		int u = pQ.top().second;
+		pQ.pop();
+
 		std::vector<Entity>::iterator i;
-		//std::cout << u<<std::endl;
 		for (i = vertexList[u].adjacents.begin(); i != vertexList[u].adjacents.end(); i++)
 		{
-			//std::cout << Citiy_To_PlateNumber[i->cityName] - 1 << std::endl;
 			if ((dist[u] + (i->weight)) < dist[Citiy_To_PlateNumber[i->cityName] - 1])
 			{
-				//std::cout<<"val: "<< Citiy_To_PlateNumber[i->cityName] - 1 <<std::endl;
 				dist[Citiy_To_PlateNumber[i->cityName] - 1] = (dist[u] + (i->weight));
-				//std::cout << Citiy_To_PlateNumber[i->cityName] - 1 << " : " << dist[Citiy_To_PlateNumber[i->cityName] - 1]<<std::endl;
 				prev[Citiy_To_PlateNumber[i->cityName] - 1] = u;
+				pQ.push({ dist[Citiy_To_PlateNumber[i->cityName] - 1],Citiy_To_PlateNumber[i->cityName] - 1 });
 			}
 		}
 	}
-	printPath(prev, start, dest, flag);
+	printPath(prev, dist, start, dest);
 }
 
-void Graph::printPath(std::vector<int>& prev, int start,int dest, bool& isSwapped)
+void Graph::printPath(std::vector<int>& prev, std::vector<int>& dist, int start, int dest)
 {
-	std::vector<std::string>City_vec;
-	std::vector<int> path;
-	int current = dest;
-	while (current != -1) {
-		path.push_back(current);
-		current = prev[current];
-	}
+	std::cout << "Shorters Distance from "<<vertexList[start].CityName<<" to "<<vertexList[dest].CityName<<": ";
 
-	for (int i = path.size() - 1; i >= 0; --i) {
-		City_vec.push_back(vertexList[path[i]].CityName);
-	}
-	if (isSwapped)
-	{
-		std::cout << "Shortest path from " << vertexList[dest].CityName << " to " << vertexList[start].CityName << ": ";
-		std::cout << path.size() << " ";
-		std::reverse(City_vec.begin(), City_vec.end());
-	}
-	else {
-		std::cout << "Shortest path from " << vertexList[start].CityName << " to " << vertexList[dest].CityName << ": ";
-		std::cout << path.size() << " ";
-	}
-	
-	for (const auto& v : City_vec)
-	{
-		std::cout << v;
-		std::cout << " , ";
-
-	}
+	// print path
+	printCities(prev, start, dest);
 	std::cout << "\n";
+}
+
+void Graph::
+printCities(std::vector<int>& prev, int start, int dest)
+{
+	if (dest == -1 || dest == start)
+	{
+		std::cout << vertexList[start].CityName;
+		return;
+	}
+
+	printCities(prev, start, prev[dest]);
+	std::cout << " - "<<vertexList[dest].CityName;
 }
