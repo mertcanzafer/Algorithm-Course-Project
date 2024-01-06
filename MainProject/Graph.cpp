@@ -121,72 +121,65 @@ void Graph::SetWeights()
 void
 Graph::findKClosestCities(std::string& SourceCity, int k)
 {
+
+	/*
+	   Create two array prev and dist with fixed size as numOfvertex
+	   set dist array as Infinite num
+	   set prev array as -1
+	   Create a priaroty queue that will hold dist and vertex
+	*/
 	const int n = VertexCount;
 	std::vector<int> dist(n, 9999);
 	std::vector<int> prev(n, -1);
-
-	int start = Citiy_To_PlateNumber[SourceCity] - 1; // Getting plate id for inputted city. but sub 1 becuase arrays begin with 0
+	int start = Citiy_To_PlateNumber[SourceCity] - 1;  // Sub 1 because Because if vertex = 0, then plate num = 1
 	dist[start] = 0;
 
-	// Create an empty set
-	std::set<int> S;
-	// Create an empty queue
-	std::list<int> Q;
+	std::priority_queue<std::pair<int, int>,
+	std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> pQ;
+	pQ.push({ 0,start });
 
-	for (int i = 0; i < n; i++)
-		Q.push_back(i);
-
-	while (!Q.empty())
+	while (!pQ.empty())
 	{
-		std::list<int>::iterator it;
-		it = std::min_element(Q.begin(), Q.end());
-		int u = *it;
-		Q.remove(u);
-		S.insert(u);
+		int u = pQ.top().second;
+		pQ.pop();
+
+		// Traverse adjacents with related to number u coming from queue
 		std::vector<Entity>::iterator i;
-		//std::cout << u<<std::endl;
 		for (i = vertexList[u].adjacents.begin(); i != vertexList[u].adjacents.end(); i++)
 		{
-			//std::cout << Citiy_To_PlateNumber[i->cityName] - 1 << std::endl;
 			if ((dist[u] + (i->weight)) < dist[Citiy_To_PlateNumber[i->cityName] - 1])
 			{
-				//std::cout<<"val: "<< Citiy_To_PlateNumber[i->cityName] - 1 <<std::endl;
 				dist[Citiy_To_PlateNumber[i->cityName] - 1] = (dist[u] + (i->weight));
-				//std::cout << Citiy_To_PlateNumber[i->cityName] - 1 << " : " << dist[Citiy_To_PlateNumber[i->cityName] - 1]<<std::endl;
 				prev[Citiy_To_PlateNumber[i->cityName] - 1] = u;
+				pQ.push({ dist[Citiy_To_PlateNumber[i->cityName] - 1],Citiy_To_PlateNumber[i->cityName] - 1 });
 			}
 		}
 	}
 
-	std::vector<std::pair<int,int>> nodesAndDistances;
-
-	for (int i = 0; i < n; i++)
-	{
-		if (i != start)
-		{
-			nodesAndDistances.push_back({ i,dist[i] });
-		}
+	// Sort the dist vector
+	std::vector<std::pair<int, int>> distances;
+	for (int i = 0; i < n; i++) {
+		distances.push_back({ dist[i], i });
 	}
-	// Sort the vector to dist
+	std::sort(distances.begin(), distances.end());
 
-	std::sort(nodesAndDistances.begin(), nodesAndDistances.end(),
-		[](const std::pair<int,int>& a, const std::pair<int, int>& b)
-		{
-			return b.second > a.second;
-		}
-	);
+	if (k > n) { std::cout << "Invalid number k!!!\n"; return; }
 
-	if (k > n) { std::cout << "Unvalid number k!!!" << std::endl; return; }
-
-	for (int i = 0; i < k; i++)
+	for (int i = 0; i < k + 1; i++)
 	{
-		std::cout << vertexList[nodesAndDistances[i].first].CityName<<" , ";
+		int v = distances[i].second;
+		std::cout << vertexList[v].CityName << " - ";
 	}
+	std::cout << "\n";
 }
 
 void Graph::
 FindShortestPath(std::string& SourceCity, std::string& DestCity)
 {
+	/*
+	   This func will use the same alg Djikstra's method
+	   and it will print out the whole path
+	*/
 	const int n = VertexCount;
 	std::vector<int> dist(n, 9999);
 	std::vector<int> prev(n, -1);
