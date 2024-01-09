@@ -97,6 +97,8 @@ int main()
 			break;
 		case 2:
 			std::cout << "You've selected city = " << CurCity << std::endl;
+			std::cout << " Its adjacents are: ";
+			VertexList[Citiy_To_PlateNumber[CurCity] - 1].printAdjacents();
 			std::cout << "\n";
 			break;
 		case 3:

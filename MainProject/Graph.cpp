@@ -13,7 +13,7 @@ void Vertex::printAdjacents()const
 {
 	for (auto& v : adjacents)
 	{
-		std::cout << v.cityName<<"("<<v.weight<<")" << " , ";
+		std::cout << v.cityName<<" , ";
 	}
 }
 
@@ -209,6 +209,7 @@ FindShortestPath(std::string& SourceCity, std::string& DestCity)
 		}
 	}
 	printPath(prev, dist, start, dest);
+	std::cout << " Total Cost: " << dist[dest]<<"\n";
 }
 
 void Graph:: 
@@ -243,6 +244,7 @@ FindShortestPath(std::string& SourceCity, int& PlateId)
 		}
 	}
 	printPath(prev, dist, start, dest);
+	std::cout << "Total Cost: " << dist[dest] << "\n";
 }
 
 void Graph::printPath(std::vector<int>& prev, std::vector<int>& dist, int start, int dest)
